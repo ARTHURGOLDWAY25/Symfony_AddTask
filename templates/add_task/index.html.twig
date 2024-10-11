@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Hello AddTaskController!{% endblock %}
+
+{% block body %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+body{
+    margin:0;
+    padding:0;
+}
+
+h1{
+    font-size: 1.3em;
+    letter-spacing:0.1em;
+     font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+    .example-wrapper { 
+        width:600px;
+        background-color: #EEEEEE;
+        padding:30px;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        border-radius: 5px;
+        box-shadow: 2px 2px 10px #c7c7c7;
+
+    }
+
+    .form-control{
+        width: 300px;
+        padding:5px;
+        margin:5px
+    }
+
+    .form-group{
+       display: flex;
+       justify-content:space-between;
+       align-items:center;
+       text-transform:capitalize;
+       letter-spacing:0.1em;
+       font-family: "Playfair Display", serif;
+       font-optical-sizing: auto;
+       font-weight: <weight>;
+       font-style: normal;
+    }
+
+    button{
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: <weight>;
+        font-style: normal;
+        background-color:#0B5394;
+        padding: 10px 20px;
+        color: white;
+        text-transform:uppercase;
+        letter-spacing:0.1em;
+        cursor:pointer;
+        border:none;
+        transition: transform 0.3s ease;
+
+        &:hover{
+            background-color:#107bdb;
+        }
+    }
+</style>
+
+<div class="example-wrapper">
+    <h1>Please enter your new task in the field below.</h1>
+
+    {# Start the form #}
+    {{form_start(form)}}
+
+         {# Custom label and input for the title #}
+         <div class="form-group"> 
+            {{form_label(form.title, 'Task Title', {'attr': {"class": "form-label"}}                )}}
+            {{form_widget(form.title, {'attr': {"class": "form-control"}} )}}
+         </div>
+        
+         {# Custom label and input for the description #}
+         <div class="form-group"> 
+            {{form_label(form.description, 'Task Description' , {'attr': {"class": "form-label"}}   )}}
+            {{form_widget(form.description, {'attr': {"class": "form-control"}} )}}
+         </div>
+
+         {# Custom label and input for the executor #}
+         <div class="form-group"> 
+            {{form_label(form.executor, 'Task Executor' , {'attr': {"class": "form-label"}}          )}}
+            {{form_widget(form.executor, {'attr': {"class": "form-control"}} )}}
+         </div>
+
+        <button type="submit">Add task</button>
+
+    {{form_end(form)}}
+
+   {# Flash message display #}
+   {% for label, messages in app.flashes %}
+        {% for message in messages %}
+        <div class="alert alert-{{label}}">{{message}}</div>
+        {% endfor   %}
+    {% endfor   %}
+
+</div>
+
+{# form-error handling #}
+
+{% if form.vars.errors|length > 0 %}
+    <div class="alert alert-danger">{{form_errors.form}}</div>
+{% endif %}
+
+{% endblock %}
